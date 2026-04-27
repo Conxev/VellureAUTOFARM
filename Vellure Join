@@ -1,26 +1,26 @@
-local QueueOnTeleport = queue_on_teleport or queueonteleport
-local TARGET_PLACE_ID = 77747658251236
+local a = queue_on_teleport or queueonteleport
+local b = 77747658251236
+local c = "aHR0cHM6Ly9yYXcuZ2l0aHViLmNvbS9Db254ZXYvVmVsbHVyZUFVVE9GQVJNL3JlZnMvaGVhZHMvbWFpbi9WZWxsdXJlJTIwbWFpbg=="
 
-if game.PlaceId == TARGET_PLACE_ID then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
+if game.PlaceId == b then
+    loadstring(game:HttpGet((game:HttpService or game:GetService("HttpService")):JSONDecode('"'..c..'"') or game:HttpGet(c)))()
 else
-    if QueueOnTeleport then
+    if a then
         (setfflag or function() end)("DebugRunParallelLuaOnMainThread", "True")
-
-        QueueOnTeleport([[
+        
+        a([[
             repeat task.wait() until game:IsLoaded()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
+            local d = "]]..c..[["
+            loadstring(game:HttpGet((game:HttpService or game:GetService("HttpService")):JSONDecode('"'..d..'"') or game:HttpGet(d)))()
         ]])
-
-        local ts = game:GetService("TeleportService")
-        local lp = game.Players.LocalPlayer
-
-        local success = pcall(function()
-            ts:Teleport(TARGET_PLACE_ID, lp)
+        
+        local e = game:GetService("TeleportService")
+        local f = game.Players.LocalPlayer
+        local g = pcall(function()
+            e:Teleport(b, f)
         end)
-
-        if not success then
-            ts:TeleportToPlaceInstance(game.PlaceId, game.JobId, lp)
+        if not g then
+            e:TeleportToPlaceInstance(game.PlaceId, game.JobId, f)
         end
     else
         game.Players.LocalPlayer:Kick("QueueOnTeleport not supported by your executor.")
