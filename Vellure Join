@@ -1,42 +1,19 @@
-print("=== VELLURE DEBUG START ===")
-print("PlaceId:", game.PlaceId)
-print("Target:", 77747658251236)
-
 local QueueOnTeleport = queue_on_teleport or queueonteleport
-print("QueueOnTeleport:", QueueOnTeleport ~= nil)
-
 local TARGET_PLACE_ID = 77747658251236
 
 if game.PlaceId == TARGET_PLACE_ID then
-    print("Already in target place - running Vellure...")
-    local s, e = pcall(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
-    end)
-    print("Direct run success:", s, e and e or "OK")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
 else
-    print("Not in target - preparing teleport...")
-    
-    if not QueueOnTeleport then
-        print("ERROR: No QueueOnTeleport")
-        game.Players.LocalPlayer:Kick("No QueueOnTeleport support")
-        return
-    end
+    if QueueOnTeleport then
+        (setfflag or function() end)("DebugRunParallelLuaOnMainThread", "True")
 
-    (setfflag or function() end)("DebugRunParallelLuaOnMainThread", "True")
-
-    QueueOnTeleport([[ 
-        print("=== QUEUE EXECUTED AFTER TELEPORT ===")
-        repeat task.wait() until game:IsLoaded()
-        print("Game loaded - injecting Vellure...")
-        local s, e = pcall(function()
+        QueueOnTeleport([[
+            repeat task.wait() until game:IsLoaded()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
-        end)
-        print("After TP loadstring success:", s)
-        if not s then print("Error:", e) end
-    ]])
+        ]])
 
-    print("Queue set - teleporting now...")
-    game:GetService("TeleportService"):Teleport(TARGET_PLACE_ID, game.Players.LocalPlayer)
+        game:GetService("TeleportService"):Teleport(TARGET_PLACE_ID, game.Players.LocalPlayer)
+    else
+        game.Players.LocalPlayer:Kick("QueueOnTeleport not supported by your executor.")
+    end
 end
-
-print("=== DEBUG SCRIPT END ===")
