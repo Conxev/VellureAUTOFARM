@@ -1,4 +1,3 @@
--- go to sea 1 pls
 local QueueOnTeleport = queue_on_teleport or queueonteleport
 local RunOnThread = run_on_thread or runonthread
 local RunOnActor = run_on_actor or runonactor
@@ -24,18 +23,22 @@ local function StartTeleport()
     game:GetService("TeleportService"):Teleport(TARGET_PLACE_ID, game.Players.LocalPlayer)
 end
 
-if RunOnThread or RunOnActor then
-    local GetNeeded = RunOnThread and (GetActorThreads or function() return {} end) 
-                   or (RunOnActor and GetDeletedActors)
+if game.PlaceId ~= TARGET_PLACE_ID then
+    if RunOnThread or RunOnActor then
+        local GetNeeded = RunOnThread and (GetActorThreads or function() return {} end) 
+                       or (RunOnActor and GetDeletedActors)
 
-    local Actor = GetNeeded and GetNeeded()[1]
-    if Actor then
-        pcall(function()
-            (RunOnThread or RunOnActor)(Actor, [[
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
-            ]])
-        end)
+        local Actor = GetNeeded and GetNeeded()[1]
+        if Actor then
+            pcall(function()
+                (RunOnThread or RunOnActor)(Actor, [[
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
+                ]])
+            end)
+        end
     end
-end
 
-StartTeleport()
+    StartTeleport()
+else
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
+end
