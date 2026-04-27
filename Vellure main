@@ -23,7 +23,9 @@ local function StartTeleport()
     game:GetService("TeleportService"):Teleport(TARGET_PLACE_ID, game.Players.LocalPlayer)
 end
 
-if game.PlaceId ~= TARGET_PLACE_ID then
+if game.PlaceId == TARGET_PLACE_ID then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
+else
     if RunOnThread or RunOnActor then
         local GetNeeded = RunOnThread and (GetActorThreads or function() return {} end) 
                        or (RunOnActor and GetDeletedActors)
@@ -39,6 +41,4 @@ if game.PlaceId ~= TARGET_PLACE_ID then
     end
 
     StartTeleport()
-else
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
 end
