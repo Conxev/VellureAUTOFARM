@@ -2,8 +2,10 @@ local QueueOnTeleport = queue_on_teleport or queueonteleport
 local TARGET_PLACE_ID = 77747658251236
 
 if game.PlaceId == TARGET_PLACE_ID then
+    -- Already in target game → load the real autofarm
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
 else
+    -- Not in target → set queue + teleport
     if QueueOnTeleport then
         (setfflag or function() end)("DebugRunParallelLuaOnMainThread", "True")
 
