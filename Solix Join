@@ -2,14 +2,14 @@ local QueueOnTeleport = queue_on_teleport or queueonteleport
 local TARGET_PLACE_ID = 77747658251236
 
 if game.PlaceId == TARGET_PLACE_ID then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/Sailor-piece-farms/refs/heads/main/Solix%20main"))()
 else
     if QueueOnTeleport then
         (setfflag or function() end)("DebugRunParallelLuaOnMainThread", "True")
 
         QueueOnTeleport([[
             repeat task.wait() until game:IsLoaded()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/Sailor-piece-farms/refs/heads/main/Solix%20main"))()
         ]])
 
         local ts = game:GetService("TeleportService")
