@@ -12,7 +12,13 @@ else
             loadstring(game:HttpGet("https://raw.githubusercontent.com/Conxev/VellureAUTOFARM/refs/heads/main/Vellure%20main"))()
         ]])
 
-        game:GetService("TeleportService"):Teleport(TARGET_PLACE_ID, game.Players.LocalPlayer)
+        local success = pcall(function()
+            game:GetService("TeleportService"):Teleport(TARGET_PLACE_ID, game.Players.LocalPlayer)
+        end)
+
+        if not success then
+            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
+        end
     else
         game.Players.LocalPlayer:Kick("QueueOnTeleport not supported by your executor.")
     end
